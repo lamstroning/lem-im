@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/tdontos-/Desktop/lem-in/ft_printf/ft_printf.h
+stdarg.h
+-
+../libft/libft.h
+/Users/tdontos-/Desktop/lem-in/libft/libft.h
+
+/Users/tdontos-/Desktop/lem-in/graph.c
+lemin.h
+/Users/tdontos-/Desktop/lem-in/lemin.h
+
+/Users/tdontos-/Desktop/lem-in/lemin.h
+libft/libft.h
+/Users/tdontos-/Desktop/lem-in/libft/libft.h
+ft_printf/ft_printf.h
+/Users/tdontos-/Desktop/lem-in/ft_printf/ft_printf.h
+
+/Users/tdontos-/Desktop/lem-in/libft/libft.h
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+stdarg.h
+-
+
