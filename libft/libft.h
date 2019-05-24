@@ -6,7 +6,7 @@
 /*   By: tdontos- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 12:23:31 by tdontos-          #+#    #+#             */
-/*   Updated: 2019/03/24 13:21:47 by tdontos-         ###   ########.fr       */
+/*   Updated: 2019/05/22 17:52:20 by tdontos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char				*ft_addnchr_e(char *str, char c, int cont);
 void				ft_makemtrx(char ***mtrx, int size);
 void				ft_lowstr(char **str);
 void				ft_upstr(char **str);
-
+int					ft_strojoin(char **s1, char const *s2);
 int					get_next_line(const int fd, char **line);
 int					save_next_line(char **arr, char **line, int fd);
 

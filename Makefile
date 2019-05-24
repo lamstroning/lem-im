@@ -12,13 +12,13 @@
 
 NAME = lem-in
 
-SRC = lemin.c graph.c structs.c
+SRC = lemin.c graph.c structs.c prepare.c running_ants.c validate-map.c
 LIBFT = ./libft
 PRINTF = ./ft_printf
 OBJ = $(SRC:.c=.o)
 INC = ./
 CC	= gcc
-# CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 
 all: $(NAME)
 	

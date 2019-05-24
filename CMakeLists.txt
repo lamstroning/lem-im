@@ -54,6 +54,7 @@ add_executable(lem_in
         libft/ft_memmove.c
         libft/ft_memset.c
         libft/ft_octal.c
+        libft/ft_pow.c
         libft/ft_putchar.c
         libft/ft_putchar_fd.c
         libft/ft_putendl.c
@@ -97,10 +98,13 @@ add_executable(lem_in
         libft/ft_toupper.c
         libft/ft_unitoa.c
         libft/ft_upstr.c
+        libft/ft_strojoin.c
         libft/get_next_line.c
-        libft/ft_pow.c
         libft/libft.h
-        lemin.c
         graph.c
-        structs.c
-        lemin.h)
+        lemin.c
+        validate-map.c
+        lemin.h
+        prepare.c
+        running_ants.c
+        structs.c)

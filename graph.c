@@ -12,49 +12,87 @@
 
 #include "lemin.h"
 
-void	breadth_search(t_map room, t_date *conf)
+void	breadth_search(t_que **que, int j)
 {
-	t_map	*pntr;
+	t_map	*map;
 
-	pntr = &room;
-	while (pntr->nbor->room)
+	if ((*que)->way->type == 1)
+		return ;
+	map = (*que)->way;
+	switch_map(&map, 2, que, j);
+	while (map->nbor != NULL && map->nbor->next != NULL)
 	{
-		if (pntr->check != 1)
-			pntr->check = 1;
-		pntr = next_lvl(*pntr);
+		if (map->type == 1)
+		{
+			next_que(que, map, j);
+			return ;
+		}
+		if (map->edge == 2)
+			switch_map(&map, 1, que, j);
+		else if (map->edge > 2)
+		{
+			if (switch_next(map, que, j) == 1)
+				map = (*que)->way;
+			else
+				return ;
+		}
 	}
 }
 
-t_map	*next_lvl(t_map room)
+void	switch_map(t_map **map, int order, t_que **que, int j)
 {
-	t_map	*pntr;
-	t_map	root;
+	t_cnt	*head;
 	t_map	*next;
-	int		i;
 
+	head = (*map)->nbor;
 	next = NULL;
-	i = 0;
-	root = room;
-	pntr = &room;
-	while (pntr->nbor != NULL)
+	if (order == 1)
+		next_que(que, *map, j);
+	while (head != NULL)
 	{
-		if (pntr->nbor->room->type == 2)
+		if (head->room->check == -1)
 		{
-			ft_printf("%s\n", pntr->nbor->room->name);
-				exit(1);
+			if (next == NULL)
+				next = head->room;
+			else
+				return ;
 		}
-		if (next == NULL && pntr->nbor->room->check == 0)
-			next = pntr->nbor->room;
-		if (pntr->nbor->next != NULL)
-			pntr->nbor = pntr->nbor->next;
-		else
-			break ;
-		i++;
+		head = head->next;
 	}
 	if (next == NULL)
 	{
-		ft_printf("Sorry, I'm can't search way, please check, again");
-		exit(1);
+		(*map)->nbor = NULL;
+		return ;
 	}
-	return (next);
+	*map = next;
+	if (order == 0)
+		next_que(que, *map, j);
 }
+
+int		switch_next(t_map *pntr, t_que **que, int check)
+{
+	t_cnt	*map;
+	t_map	*tmp;
+
+	map = pntr->nbor;
+	tmp = NULL;
+	while (map != NULL)
+	{
+		if (map->room->type == 1)
+		{
+			next_que(que, pntr, check);
+			next_que(que, map->room, check);
+			return (0);
+		}
+		if (tmp != NULL && map->room->check == -1)
+			return (0);
+		if (map->room->check == -1 || map->room->type == 1)
+			tmp = map->room;
+		map = map->next;
+	}
+	if (tmp == NULL)
+		return (0);
+	next_que(que, tmp, check);
+	return (1);
+}
+

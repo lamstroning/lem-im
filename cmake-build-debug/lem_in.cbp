@@ -332,6 +332,9 @@
 		<Unit filename="/Users/tdontos-/Desktop/lem-in/libft/ft_strnstr.c">
 			<Option target="lem_in"/>
 		</Unit>
+		<Unit filename="/Users/tdontos-/Desktop/lem-in/libft/ft_strojoin.c">
+			<Option target="lem_in"/>
+		</Unit>
 		<Unit filename="/Users/tdontos-/Desktop/lem-in/libft/ft_strrchr.c">
 			<Option target="lem_in"/>
 		</Unit>
@@ -371,7 +374,16 @@
 		<Unit filename="/Users/tdontos-/Desktop/lem-in/libft/libft.h">
 			<Option target="lem_in"/>
 		</Unit>
+		<Unit filename="/Users/tdontos-/Desktop/lem-in/prepare.c">
+			<Option target="lem_in"/>
+		</Unit>
+		<Unit filename="/Users/tdontos-/Desktop/lem-in/running_ants.c">
+			<Option target="lem_in"/>
+		</Unit>
 		<Unit filename="/Users/tdontos-/Desktop/lem-in/structs.c">
+			<Option target="lem_in"/>
+		</Unit>
+		<Unit filename="/Users/tdontos-/Desktop/lem-in/validate-map.c">
 			<Option target="lem_in"/>
 		</Unit>
 		<Unit filename="/Users/tdontos-/Desktop/lem-in/CMakeLists.txt">

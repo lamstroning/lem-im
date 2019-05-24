@@ -2,4 +2,4 @@
 
 rm lem-in
 make
-./lem-in < map
+./lem-in < wtf

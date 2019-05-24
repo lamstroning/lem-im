@@ -11,41 +11,39 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <fcntl.h>
 
-int		init_map(t_date *conf, t_cnt *conct)
+
+int		init_map(t_date *conf)
 {
 	int		i;
-	char	*line;
+	int		j;
 	t_map	*rooms;
-	i = 0;
 
+	i = 0;
+	j = -1;
 	rooms = (t_map*)ft_memalloc(sizeof(t_map) * conf->count);
-	while (get_next_line(FD, &line) > 0)
+	while (conf->file[++j] != NULL)
 	{
-		if (line[0] == '#' && line[1] != '#')
-				continue ;
-			if (rooms[i].name == NULL && i < conf->count)
-				rooms[i] = create_room(rooms[i]);
-			if (ft_strcmp(line, "##start") == 0)
-				rooms[i].type = 1;
-			else if (ft_strcmp(line, "##end") == 0)
-				rooms[i].type = 2;
-			if (i < conf->count && rooms[i].type != 0)
-				get_next_line(FD, &line);
-		if (ft_strchr(line, ' ') != NULL)
-			rooms[i++].name = ft_strcpy_chr(line, ' ');
-		else if (ft_strchr(line, '-') != NULL)
-			check_connect(line, conct, rooms, conf->count);
+		if (conf->file[j][0] == '#' && conf->file[j][1] != '#')
+			continue ;
+		if (rooms[i].name == NULL && i < conf->count)
+			rooms[i] = create_room(rooms[i]);
+		if (ft_strcmp(conf->file[j], "##start") == 0)
+			rooms[i].type = 1;
+		else if (ft_strcmp(conf->file[j], "##end") == 0)
+			rooms[i].type = 2;
+		if (i < conf->count && rooms[i].type != 0)
+			j++;
+		if (ft_strchr(conf->file[j], ' ') != NULL)
+			rooms[i++].name = ft_strcpy_chr(conf->file[j], ' ');
+		else if (ft_strchr(conf->file[j], '-') != NULL)
+			check_connect(conf->file[j], rooms, conf->count);
 	}
-	ft_strdel(&line);
-	breadth_search(rooms[conf->start], conf);
-	while (i > 0)
-		ft_printf("%s\n", rooms[--i].name);
+	prepare_room(rooms, conf);
 	return (1);
 }
 
-void		check_connect(char *line, t_cnt *conct, t_map *rooms, int c)
+void	check_connect(char *line, t_map *rooms, int c)
 {
 	char	*frst;
 	char	*scnd;
@@ -75,44 +73,38 @@ void		check_connect(char *line, t_cnt *conct, t_map *rooms, int c)
 	rooms[s].edge += connect_map(&rooms[s].nbor, &rooms[f]);
 }
 
-void	count_rooms(int fd, t_date *conf)
+void	count_rooms(t_date *conf)
 {
+	int		i;
 	int		count;
-	char	*line;
 
 	count = 0;
-	get_next_line(FD, &line);
-	if (line != NULL)
-		conf->ants = ft_atoi(line);
-	if (conf->ants <= 0)
-		exit(1);
-	while (get_next_line(FD, &line) > 0)
+	i = -1;
+	conf->ants = ft_atoi(conf->file[0]);
+	while (conf->file[++i] != NULL)
 	{
-		if (ft_strcmp(line, "##start") == 0)
+		if (ft_strcmp(conf->file[i], "##start") == 0)
 			conf->start = count;
-		else if (ft_strcmp(line, "##end") == 0)
+		else if (ft_strcmp(conf->file[i], "##end") == 0)
 			conf->end = count;
-		if (line[0] == '#' || ft_strchr(line, ' ') == NULL)
+		if (conf->file[i][0] == '#' || ft_strchr(conf->file[i], ' ') == NULL)
 			continue ;
 		count++;
 	}
 	conf->count = count;
-	close(fd);
-	fd = open("map", O_RDONLY);
-	ft_strdel(&line);
 }
 
 int		main(void)
 {
-	int		fd;
 	t_date	*conf;
-	t_cnt	*conct;
-	conct = NULL;
+	int		fd;
 
-	fd = open("map", O_RDONLY);
+	fd = open("/Users/tdontos-/Desktop/lem-in/wtf", O_RDONLY);
 	conf = (t_date*)ft_memalloc(sizeof(t_date));
-	count_rooms(fd, conf);
-	if (!init_map(conf, conct))
+	getstr(conf);
+	count_rooms(conf);
+	if (!init_map(conf))
 		exit(1);
+	dellist(conf->file);
 	return (0);
 }
